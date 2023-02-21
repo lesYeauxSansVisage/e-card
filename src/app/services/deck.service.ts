@@ -24,10 +24,19 @@ export class DeckService {
   constructor() {}
 
   getSlaveDeck() {
-    return this.slaveDeck.slice(0).sort();
+    return this.shuffle(this.slaveDeck.slice(0));
   }
 
   getEmperorDeck() {
-    return this.emperorDeck.slice(0);
+    return this.shuffle(this.emperorDeck.slice(0));
+  }
+
+  shuffle(deck: ICard[]) {
+    for (let i = deck.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+
+    return deck;
   }
 }
