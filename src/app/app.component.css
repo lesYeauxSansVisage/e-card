@@ -1,0 +1,19 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+
+  background-image: radial-gradient(
+      circle,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(2, 2, 4, 0.4) 99%,
+      rgba(2, 2, 4, 0.5) 100%
+    ),
+    url("../assets/imgs/967265.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
