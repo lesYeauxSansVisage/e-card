@@ -6,9 +6,9 @@ import { ICard } from '../interfaces/ICard';
 })
 export class DeckService {
   private slaveDeck: ICard[] = [
+    { name: 'citizen', image: 'assets/imgs/Citizen.jpg' },
+    { name: 'citizen', image: 'assets/imgs/Citizen.jpg' },
     { name: 'slave', image: 'assets/imgs/Slave.jpg' },
-    { name: 'citizen', image: 'assets/imgs/Citizen.jpg' },
-    { name: 'citizen', image: 'assets/imgs/Citizen.jpg' },
     { name: 'citizen', image: 'assets/imgs/Citizen.jpg' },
     { name: 'citizen', image: 'assets/imgs/Citizen.jpg' },
   ];
