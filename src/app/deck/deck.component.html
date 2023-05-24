@@ -1,0 +1,12 @@
+<div class="cards-container">
+  <ng-container *ngIf="player === 'player'">
+    <app-card *ngFor="let card of deck" [cardData]="card"></app-card>
+  </ng-container>
+
+  <ng-container *ngIf="player === 'computer'">
+    <app-computer-card
+      *ngFor="let card of deck"
+      [card]="card"
+    ></app-computer-card>
+  </ng-container>
+</div>
