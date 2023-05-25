@@ -1,0 +1,46 @@
+.computer-card {
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    position: relative;
+    width: 150px;
+    height: var(--card-size);
+
+    border: 1px solid black;
+    /* you can remove this */
+    border-radius: 10px;
+
+
+    &__side {
+        height: var(--card-size);
+        transition: all 0.8s ease;
+        border-radius: 10px;
+        overflow: hidden;
+
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        backface-visibility: hidden;
+
+        box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+
+        &--front {}
+
+        &--back {
+            transform: rotateY(-180deg);
+        }
+    }
+
+    &__image {
+        width: 100%;
+    }
+
+    &:hover &__side--front {
+        transform: rotateY(180deg);
+    }
+
+    &:hover &__side--back {
+        transform: rotateY(0);
+    }
+}
