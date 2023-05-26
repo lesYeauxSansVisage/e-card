@@ -2,11 +2,10 @@
     perspective: 150rem;
     -moz-perspective: 150rem;
     position: relative;
-    width: 150px;
     height: var(--card-size);
+    width: 147.05px;
 
-    border: 1px solid black;
-    /* you can remove this */
+
     border-radius: 10px;
 
 
@@ -25,7 +24,9 @@
         box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
         overflow: hidden;
 
-        &--front {}
+        &--front {
+            width: 100%;
+        }
 
         &--back {
             transform: rotateY(-180deg);
@@ -33,6 +34,7 @@
     }
 
     &__image {
+        height: 100%;
         width: 100%;
     }
 
