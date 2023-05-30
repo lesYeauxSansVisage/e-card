@@ -2,24 +2,68 @@ import { Injectable } from '@angular/core';
 import ICard from '../interfaces/ICard';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DeckService {
-
   private slaveDeck: ICard[] = [
-    { name: 'citizen', image: 'assets/imgs/Citizen.jpg', beats: "slave" },
-    { name: 'citizen', image: 'assets/imgs/Citizen.jpg', beats: "slave" },
-    { name: 'slave', image: 'assets/imgs/Slave.jpg', beats: "emperor" },
-    { name: 'citizen', image: 'assets/imgs/Citizen.jpg' , beats: "slave"},
-    { name: 'citizen', image: 'assets/imgs/Citizen.jpg' , beats: "slave"},
+    {
+      id: 1,
+      name: 'citizen',
+      image: 'assets/imgs/Citizen.jpg',
+      beats: 'slave',
+    },
+    {
+      id: 2,
+      name: 'citizen',
+      image: 'assets/imgs/Citizen.jpg',
+      beats: 'slave',
+    },
+    { id: 3, name: 'slave', image: 'assets/imgs/Slave.jpg', beats: 'emperor' },
+    {
+      id: 4,
+      name: 'citizen',
+      image: 'assets/imgs/Citizen.jpg',
+      beats: 'slave',
+    },
+    {
+      id: 5,
+      name: 'citizen',
+      image: 'assets/imgs/Citizen.jpg',
+      beats: 'slave',
+    },
   ];
 
   private emperorDeck: ICard[] = [
-    { name: 'emperor', image: 'assets/imgs/Emperor.jpg', beats: "citizen"},
-    { name: 'citizen', image: 'assets/imgs/Citizen.jpg' , beats: "slave"},
-    { name: 'citizen', image: 'assets/imgs/Citizen.jpg' , beats: "slave"},
-    { name: 'citizen', image: 'assets/imgs/Citizen.jpg', beats: "slave" },
-    { name: 'citizen', image: 'assets/imgs/Citizen.jpg', beats: "slave" },
+    {
+      id: 1,
+      name: 'emperor',
+      image: 'assets/imgs/Emperor.jpg',
+      beats: 'citizen',
+    },
+    {
+      id: 2,
+      name: 'citizen',
+      image: 'assets/imgs/Citizen.jpg',
+      beats: 'slave',
+    },
+    {
+      id: 3,
+      name: 'citizen',
+      image: 'assets/imgs/Citizen.jpg',
+      beats: 'slave',
+    },
+    {
+      id: 4,
+      name: 'citizen',
+      image: 'assets/imgs/Citizen.jpg',
+      beats: 'slave',
+    },
+    {
+      id: 5,
+      name: 'citizen',
+      image: 'assets/imgs/Citizen.jpg',
+      beats: 'slave',
+    },
   ];
 
   constructor() {}
