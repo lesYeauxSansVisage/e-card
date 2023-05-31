@@ -38,11 +38,11 @@
         width: 100%;
     }
 
-    &:hover &__side--front {
+    &.selected &__side--front {
         transform: rotateY(180deg);
     }
 
-    &:hover &__side--back {
+    &.selected &__side--back {
         transform: rotateY(0);
     }
 }

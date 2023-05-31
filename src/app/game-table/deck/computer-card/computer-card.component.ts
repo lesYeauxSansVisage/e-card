@@ -9,6 +9,8 @@ import ICard from '../../../interfaces/ICard';
 export class ComputerCardComponent implements OnInit {
   @Input() card: ICard;
 
+  @Input() selectedCard: number | null;
+
   constructor() {}
 
   ngOnInit(): void {}

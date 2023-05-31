@@ -1,4 +1,4 @@
-<div class="computer-card">
+<div class="computer-card" [ngClass]="{ 'selected': selectedCard === card.id }">
   <div class="computer-card__side computer-card__side--front">
     <img
       src="../../assets/imgs/Card-back.png"
