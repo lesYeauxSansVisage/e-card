@@ -8,6 +8,7 @@ import Card from '../../../interfaces/ICard';
 })
 export class CardComponent implements OnInit {
   @Input() cardData: Card;
+  @Input() currentActiveCard: number | null = null;
 
   constructor() {}
 
