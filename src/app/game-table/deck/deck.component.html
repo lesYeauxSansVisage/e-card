@@ -4,6 +4,7 @@
       (click)="onClick(card)"
       *ngFor="let card of deck"
       [cardData]="card"
+      [currentActiveCard]="choosenCardID"
     ></app-card>
   </ng-container>
 
@@ -11,6 +12,7 @@
     <app-computer-card
       *ngFor="let card of deck"
       [card]="card"
+      [selectedCard]="choosenCardID"
     ></app-computer-card>
   </ng-container>
 </div>
