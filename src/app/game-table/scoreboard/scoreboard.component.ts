@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ScoreboardComponent implements OnInit {
   @Input() turn: number;
-  @Input() deckName: string;
+ 
   constructor() {}
 
   ngOnInit(): void {}
