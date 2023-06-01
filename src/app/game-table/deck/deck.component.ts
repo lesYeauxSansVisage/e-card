@@ -9,7 +9,7 @@ import ICard from '../../interfaces/ICard';
 export class DeckComponent implements OnInit {
   @Input() deck: ICard[];
   @Input() player: string;
-  @Input() choosenCardID: number | undefined;
+  @Input() choosenCardID: number | null = null;
   @Output() cardClicked = new EventEmitter<ICard>();
   @Output() onComputerChoice = new EventEmitter<ICard>();
 
@@ -19,5 +19,6 @@ export class DeckComponent implements OnInit {
 
   onClick(card: ICard) {
     this.cardClicked.emit(card);
+    this.choosenCardID = card.id;
   }
 }
