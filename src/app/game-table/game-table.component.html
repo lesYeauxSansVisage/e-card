@@ -1,0 +1,15 @@
+<div class="game-table">
+  <app-scoreboard [turn]="turn"></app-scoreboard>
+  <app-deck
+    [player]="'computer'"
+    [deck]="computerDeck"
+    [choosenCardID]="computerCardId"
+  ></app-deck>
+  <button class="button button--play" (click)="playCard()">Play a Card!</button>
+  <app-deck
+    [player]="'player'"
+    [deck]="playerDeck"
+    [choosenCardID]="choosenPlayerCardId"
+    (cardClicked)="onPlayerChoice($event)"
+  ></app-deck>
+</div>
