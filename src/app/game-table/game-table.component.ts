@@ -52,22 +52,21 @@ export class GameTableComponent implements OnInit {
 
     if (this.playerChoice.beats === this.computerChoice.name) {
       this.computerCardId = this.computerChoice.id;
+      this.lockSelectedCards = true;
 
       setTimeout(() => {
-        alert('Player Wins!');
         this.resetGame();
         this.increaseTurn();
         this.lockSelectedCards = false;
-      }, 2000);
+      }, 1000);
     } else if (this.computerChoice.beats === this.playerChoice.name) {
       this.lockSelectedCards = true;
       this.computerCardId = this.computerChoice.id;
       setTimeout(() => {
-        alert('Computer Wins!');
         this.resetGame();
         this.increaseTurn();
         this.lockSelectedCards = false;
-      }, 2000);
+      }, 1000);
     } else {
       this.lockSelectedCards = true;
       this.computerCardId = this.computerChoice.id;
@@ -76,7 +75,7 @@ export class GameTableComponent implements OnInit {
         this.removeCards();
         this.resetSelection();
         this.lockSelectedCards = false;
-      }, 2000);
+      }, 1000);
     }
   }
 
