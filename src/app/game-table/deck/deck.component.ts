@@ -10,12 +10,14 @@ export class DeckComponent implements OnInit {
   @Input() deck: ICard[];
   @Input() player: string;
   @Input() choosenCardID: number | null = null;
+
   @Output() cardClicked = new EventEmitter<ICard>();
-  @Output() onComputerChoice = new EventEmitter<ICard>();
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.choosenCardID);
+  }
 
   onClick(card: ICard) {
     this.cardClicked.emit(card);
