@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 export class GameLogicService {
   currentTurn = 1;
 
-  isGameOver = new Subject<boolean>();
+  isTurnOver = new Subject<boolean>();
 
   playerPoints = 0;
   computerPoints = 0;
@@ -22,12 +22,17 @@ export class GameLogicService {
   checkWinner(playerCard: ICard, computerCard: ICard) {
     if (playerCard.beats === computerCard.name) {
       this.playerPoints += this.getPoints(this.currentPlayerDeck);
-      this.isGameOver.next(true);
+
+      this.isTurnOver.next(true);
+      console.log('Player current points: ', this.playerPoints);
+      console.log('Computer current points: ', this.computerPoints);
     }
 
     if (computerCard.beats === playerCard.name) {
       this.computerPoints += this.getPoints(this.currentComputerDeck);
-      this.isGameOver.next(true);
+      this.isTurnOver.next(true);
+      console.log('Player current points: ', this.playerPoints);
+      console.log('Computer current points: ', this.computerPoints);
     }
   }
 
@@ -41,5 +46,13 @@ export class GameLogicService {
     }
 
     return 0;
+  }
+
+  setPlayerDeck(deckName: string) {
+    this.currentPlayerDeck = deckName;
+  }
+
+  setComputerDeck(deckName: string) {
+    this.currentComputerDeck = deckName;
   }
 }
