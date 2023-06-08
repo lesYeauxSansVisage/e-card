@@ -11,7 +11,7 @@
 
     &__side {
         height: var(--card-size);
-        transition: all 0.8s ease;
+
         border-radius: 10px;
         overflow: hidden;
 
@@ -39,10 +39,31 @@
     }
 
     &.selected &__side--front {
-        transform: rotateY(180deg);
+        animation: flipCardFront 0.55s;
     }
 
     &.selected &__side--back {
+        animation: flipCardBack 0.55s;
+    }
+}
+
+@keyframes flipCardFront {
+    0% {
+        transform: rotateY(0);
+    }
+
+    100% {
+        transform: rotateY(180deg);
+    }
+}
+
+
+@keyframes flipCardBack {
+    0% {
+        transform: rotateY(-180deg);
+    }
+
+    100% {
         transform: rotateY(0);
     }
 }
