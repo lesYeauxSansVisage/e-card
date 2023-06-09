@@ -1,0 +1,23 @@
+.btn {
+    border: none;
+    font-family: inherit;
+    font-size: 2rem;
+
+    background-color: white;
+
+    transition: 0.3s all ease;
+
+    padding: 10px 20px;
+
+    border-radius: 100px;
+
+    cursor: pointer;
+
+    &:hover {
+        letter-spacing: 2px;
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
+}
