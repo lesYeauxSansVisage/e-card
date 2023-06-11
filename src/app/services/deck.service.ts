@@ -69,11 +69,11 @@ export class DeckService {
   constructor() {}
 
   getSlaveDeck() {
-    return this.shuffle(this.slaveDeck.slice(0));
+    return this.shuffle(this.slaveDeck.slice());
   }
 
   getEmperorDeck() {
-    return this.shuffle(this.emperorDeck.slice(0));
+    return this.shuffle(this.emperorDeck.slice());
   }
 
   shuffle(deck: ICard[]) {
