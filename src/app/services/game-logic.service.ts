@@ -22,17 +22,12 @@ export class GameLogicService {
   checkWinner(playerCard: ICard, computerCard: ICard) {
     if (playerCard.beats === computerCard.name) {
       this.playerPoints += this.getPoints(this.currentPlayerDeck);
-
       this.isTurnOver.next(true);
-      console.log('Player current points: ', this.playerPoints);
-      console.log('Computer current points: ', this.computerPoints);
     }
 
     if (computerCard.beats === playerCard.name) {
       this.computerPoints += this.getPoints(this.currentComputerDeck);
       this.isTurnOver.next(true);
-      console.log('Player current points: ', this.playerPoints);
-      console.log('Computer current points: ', this.computerPoints);
     }
   }
 
