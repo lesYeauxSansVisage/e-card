@@ -1,0 +1,31 @@
+@import '../../../sass/abstract/mixins';
+
+.end-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.9);
+
+    @include flexCenter;
+    flex-direction: column;
+    gap: 3rem;
+
+    &__result {
+        color: var(--font-color-light);
+        font-size: 3rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+    }
+
+    &__img {
+        width: 70%;
+        border-radius: 3px;
+        max-width: 600px;
+
+        box-shadow: var(--box-shadow-strong);
+    }
+}
