@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import ICard from '../interfaces/ICard';
 import { DeckService } from './deck.service';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameLogicService {
-  currentTurn = 1;
+  turnSubject = new BehaviorSubject<number>(1);
+  turn = 1;
 
   isTurnOver = new Subject<boolean>();
 
@@ -22,11 +23,13 @@ export class GameLogicService {
   checkWinner(playerCard: ICard, computerCard: ICard) {
     if (playerCard.beats === computerCard.name) {
       this.playerPoints += this.getPoints(this.currentPlayerDeck);
+      this.increaseTurn();
       this.isTurnOver.next(true);
     }
 
     if (computerCard.beats === playerCard.name) {
       this.computerPoints += this.getPoints(this.currentComputerDeck);
+      this.increaseTurn();
       this.isTurnOver.next(true);
     }
   }
@@ -49,5 +52,17 @@ export class GameLogicService {
 
   setComputerDeck(deckName: string) {
     this.currentComputerDeck = deckName;
+  }
+
+  increaseTurn() {
+    this.turn += 1;
+    this.turnSubject.next(this.turn);
+  }
+
+  resetGame() {
+    this.computerPoints = 0;
+    this.playerPoints = 0;
+
+    this.turn = 1;
   }
 }
