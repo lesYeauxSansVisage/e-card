@@ -4,4 +4,10 @@
     @include flexCenter;
     flex-direction: column;
     gap: 2rem;
+
+    background-color: var(--color-dark-1);
+    width: 100vw;
+    height: 100vh;
+
+    color: var(--font-color-light);
 }
