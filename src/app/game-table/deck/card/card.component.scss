@@ -6,9 +6,10 @@
     cursor: pointer;
     box-shadow: 0 0 3rem rgba(#000000, 0.5);
 
+
     &.selected {
-        transform: scale(1.1) rotateZ(5deg);
-        box-shadow: 0 0 4rem rgba(#000000, 0.8);
+        transform: scale(1.05) rotateZ(5deg);
+        box-shadow: 0 0 2rem rgba(#8d8c8c, 0.8);
     }
 
     &__image {
