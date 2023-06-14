@@ -9,15 +9,13 @@ import ICard from '../../interfaces/ICard';
 export class DeckComponent implements OnInit {
   @Input() deck: ICard[];
   @Input() player: string;
-  @Input() choosenCardID: number | null = null;
+  @Input() choosenCardID: number;
 
   @Output() cardClicked = new EventEmitter<ICard>();
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.choosenCardID);
-  }
+  ngOnInit(): void {}
 
   onClick(card: ICard) {
     this.cardClicked.emit(card);
