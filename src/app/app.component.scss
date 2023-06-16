@@ -1,0 +1,8 @@
+@import '../sass/abstract/mixins';
+
+
+:host {
+    @include flexCenter;
+
+    min-height: 100vh;
+}
