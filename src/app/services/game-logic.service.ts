@@ -9,8 +9,9 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class GameLogicService {
   turnSubject = new BehaviorSubject<number>(1);
   turn = 1;
-
   isTurnOver = new Subject<boolean>();
+
+  isGameOver = new Subject<boolean>();
 
   playerPoints = 0;
   computerPoints = 0;
@@ -18,18 +19,16 @@ export class GameLogicService {
   currentPlayerDeck: string = 'emperor';
   currentComputerDeck: string = 'slave';
 
-  constructor(private deckService: DeckService) {}
+  constructor() {}
 
   checkWinner(playerCard: ICard, computerCard: ICard) {
     if (playerCard.beats === computerCard.name) {
       this.playerPoints += this.getPoints(this.currentPlayerDeck);
-      this.increaseTurn();
       this.isTurnOver.next(true);
     }
 
     if (computerCard.beats === playerCard.name) {
       this.computerPoints += this.getPoints(this.currentComputerDeck);
-      this.increaseTurn();
       this.isTurnOver.next(true);
     }
   }
@@ -55,8 +54,18 @@ export class GameLogicService {
   }
 
   increaseTurn() {
-    this.turn += 1;
-    this.turnSubject.next(this.turn);
+    if (this.turn < 12) {
+      this.turn += 1;
+      this.turnSubject.next(this.turn);
+    } else {
+      this.endGame();
+    }
+  }
+
+  getResult() {}
+
+  endGame() {
+    this.isGameOver.next(true);
   }
 
   resetGame() {
