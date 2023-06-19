@@ -11,13 +11,15 @@ export class GameLogicService {
   turn = 1;
   isTurnOver = new Subject<boolean>();
 
-  isGameOver = new Subject<boolean>();
+  isGameOver = new Subject<string>();
 
   playerPoints = 0;
   computerPoints = 0;
 
   currentPlayerDeck: string = 'emperor';
   currentComputerDeck: string = 'slave';
+
+  NUMBER_OF_TURNS = 12;
 
   constructor() {}
 
@@ -54,7 +56,7 @@ export class GameLogicService {
   }
 
   increaseTurn() {
-    if (this.turn < 12) {
+    if (this.turn < this.NUMBER_OF_TURNS) {
       this.turn += 1;
       this.turnSubject.next(this.turn);
     } else {
@@ -62,10 +64,21 @@ export class GameLogicService {
     }
   }
 
-  getResult() {}
+  getResult() {
+    if (this.playerPoints > this.computerPoints) {
+      return 'win'
+    }
+
+    if (this.computerPoints > this.playerPoints) {
+      return 'loss'
+    }
+
+    return 'draw'
+  }
 
   endGame() {
-    this.isGameOver.next(true);
+    const result = this.getResult()
+    this.isGameOver.next(result);
   }
 
   resetGame() {
