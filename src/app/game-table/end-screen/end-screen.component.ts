@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-end-screen',
@@ -7,6 +7,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class EndScreenComponent implements OnInit {
   @Output() restartGame = new EventEmitter<void>();
+  @Input() result: string;
 
   constructor() {}
 
