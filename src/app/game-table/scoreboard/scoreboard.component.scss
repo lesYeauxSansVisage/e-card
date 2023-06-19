@@ -27,5 +27,10 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+
+
+        &:not(:last-of-type) {
+            margin-right: 1rem;
+        }
     }
 }
