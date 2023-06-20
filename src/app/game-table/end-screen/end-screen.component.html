@@ -1,5 +1,9 @@
 <div class="end-screen">
-  <p class="end-screen__result">You lost!</p>
-  <img class="end-screen__img" src="../../../assets/imgs/loss.jpg" alt="" />
+  <p class="end-screen__result">{{ result }}!</p>
+  <img
+    class="end-screen__img"
+    src="../../../assets/imgs/{{ result }}.jpg"
+    alt="Result image"
+  />
   <button class="btn btn-restart" (click)="onRestart()">Play again?</button>
 </div>
