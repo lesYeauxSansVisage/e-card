@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import ICard from '../interfaces/ICard';
-import { DeckService } from './deck.service';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
