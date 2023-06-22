@@ -22,6 +22,8 @@ export class GameTableComponent implements OnInit, OnDestroy {
   isGameOver = false;
   gameOverSub: Subscription;
 
+  result = '';
+
   playerPoints = 0;
   computerPoints = 0;
 
@@ -53,7 +55,8 @@ export class GameTableComponent implements OnInit, OnDestroy {
     );
 
     this.gameOverSub = this.gameLogicService.isGameOver.subscribe((isOver) => {
-      this.isGameOver = isOver;
+      this.isGameOver = true;
+      this.result = isOver;
     });
   }
 
