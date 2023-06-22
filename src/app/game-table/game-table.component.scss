@@ -3,7 +3,7 @@
 .game-table {
     @include flexCenter;
     flex-direction: column;
-    gap: 2rem;
+    gap: 4rem;
 
     background-color: var(--color-dark-1);
     width: 100vw;
