@@ -10,6 +10,25 @@ fdescribe('GameLogicService', () => {
     service = TestBed.inject(GameLogicService);
   });
 
+
+  describe('checkWinner', () => {
+    it('', () => {
+
+    })
+
+    it('', () => {
+      
+    })
+
+    it('', () => {
+      
+    })
+
+    it('', () => {
+      
+    })
+  })
+
   it('should not increase the turn if greater than 12', () => {
     service.turn = 12;
     service.increaseTurn();
@@ -30,5 +49,25 @@ fdescribe('GameLogicService', () => {
     });
 
     service.increaseTurn();
+  });
+
+  it('should not call next in isGameOver when current turn less than 12 and increaseTurn method is called', () => {
+    service.turn = 11;
+
+    spyOn(service, 'endGame');
+
+    service.increaseTurn();
+
+    expect(service.endGame).not.toHaveBeenCalled();
+  });
+
+  it('should call the method endGame when current turn is 12 and increaseTurn method is called', () => {
+    service.turn = 12;
+
+    spyOn(service, 'endGame');
+
+    service.increaseTurn();
+
+    expect(service.endGame).toHaveBeenCalled();
   });
 });
