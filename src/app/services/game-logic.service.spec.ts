@@ -1,33 +1,66 @@
 import { TestBed } from '@angular/core/testing';
 
 import { GameLogicService } from './game-logic.service';
+import ICard from '../interfaces/ICard';
 
 fdescribe('GameLogicService', () => {
   let service: GameLogicService;
 
+  const emperorCard: ICard = {
+    id: 1,
+    name: 'emperor',
+    image: 'assets/imgs/Emperor.jpg',
+    beats: 'citizen',
+  };
+
+  const slaveCard: ICard = {
+    id: 2,
+    name: 'slave',
+    image: 'assets/imgs/Slave.jpg',
+    beats: 'emperor',
+  };
+
+  const citizenCard: ICard = {
+    id: 3,
+    name: 'citizen',
+    image: 'assets/imgs/Emperor.jpg',
+    beats: 'Slave',
+  };
+
   beforeEach(() => {
-    TestBed.configureTestingModule({});
     service = TestBed.inject(GameLogicService);
   });
 
-
   describe('checkWinner', () => {
-    it('', () => {
+    it('should increase player points if playerCard beats computerCard', () => {
+      const EXPECTED_RESULT = 3;
 
-    })
+      service.setPlayerDeck('slave');
+      service.setComputerDeck('emperor');
 
-    it('', () => {
-      
-    })
+      service.checkWinner(slaveCard, emperorCard);
 
-    it('', () => {
-      
-    })
+      expect(service.playerPoints).toEqual(EXPECTED_RESULT);
+    });
 
-    it('', () => {
-      
-    })
-  })
+    it('should increase computer points if playerCard beats computerCard', () => {
+      const EXPECTED_RESULT = 3;
+
+      service.setComputerDeck('slave');
+      service.setPlayerDeck('emperor');
+
+      service.checkWinner(emperorCard, slaveCard);
+
+      expect(service.computerPoints).toEqual(EXPECTED_RESULT);
+    });
+
+    it('should not increase player or computer points if game has a draw', () => {
+      service.checkWinner(citizenCard, citizenCard);
+
+      expect(service.computerPoints).toBe(0);
+      expect(service.playerPoints).toBe(0);
+    });
+  });
 
   it('should not increase the turn if greater than 12', () => {
     service.turn = 12;
