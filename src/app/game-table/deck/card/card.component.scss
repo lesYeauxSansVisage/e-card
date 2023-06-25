@@ -1,11 +1,14 @@
+:host {
+    flex: 0 1 20%;
+    align-self: center;
+}
+
 .card {
-    height: var(--card-size);
     border-radius: 10px;
     overflow: hidden;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
     box-shadow: 0 0 3rem rgba(#000000, 0.5);
-
 
     &.selected {
         transform: scale(1.05) rotateZ(5deg);
@@ -13,6 +16,6 @@
     }
 
     &__image {
-        height: 100%;
+        width: 100%;
     }
 }
