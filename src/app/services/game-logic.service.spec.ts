@@ -62,45 +62,47 @@ fdescribe('GameLogicService', () => {
     });
   });
 
-  it('should not increase the turn if greater than 12', () => {
-    service.turn = 12;
-    service.increaseTurn();
+  describe('increaseTurn', () => {
+    it('should not increase the turn if greater than 12', () => {
+      service.turn = 12;
+      service.increaseTurn();
 
-    expect(service.turn).toEqual(12);
-  });
-
-  it('should call next in isGameOver with truthy value when current turn is 12 and increaseTurn method is called', (done) => {
-    service.turn = 12;
-
-    let called = false;
-
-    service.isGameOver.subscribe((isOver) => {
-      called = true;
-      expect(isOver).toBeTruthy();
-      expect(called).toBeTrue();
-      done();
+      expect(service.turn).toEqual(12);
     });
 
-    service.increaseTurn();
-  });
+    it('should call next in isGameOver with truthy value when current turn is 12 and increaseTurn method is called', (done) => {
+      service.turn = 12;
 
-  it('should not call next in isGameOver when current turn less than 12 and increaseTurn method is called', () => {
-    service.turn = 11;
+      let called = false;
 
-    spyOn(service, 'endGame');
+      service.isGameOver.subscribe((isOver) => {
+        called = true;
+        expect(isOver).toBeTruthy();
+        expect(called).toBeTrue();
+        done();
+      });
 
-    service.increaseTurn();
+      service.increaseTurn();
+    });
 
-    expect(service.endGame).not.toHaveBeenCalled();
-  });
+    it('should not call next in isGameOver when current turn less than 12 and increaseTurn method is called', () => {
+      service.turn = 11;
 
-  it('should call the method endGame when current turn is 12 and increaseTurn method is called', () => {
-    service.turn = 12;
+      spyOn(service, 'endGame');
 
-    spyOn(service, 'endGame');
+      service.increaseTurn();
 
-    service.increaseTurn();
+      expect(service.endGame).not.toHaveBeenCalled();
+    });
 
-    expect(service.endGame).toHaveBeenCalled();
+    it('should call the method endGame when current turn is 12 and increaseTurn method is called', () => {
+      service.turn = 12;
+
+      spyOn(service, 'endGame');
+
+      service.increaseTurn();
+
+      expect(service.endGame).toHaveBeenCalled();
+    });
   });
 });
