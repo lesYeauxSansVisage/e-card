@@ -135,4 +135,33 @@ fdescribe('GameLogicService', () => {
       expect(service.currentComputerDeck).toBe('slave');
     });
   });
+
+  describe('getResult', () => {
+    it('should return "loss" if computer has more points than player', () => {
+      service.computerPoints = 1;
+      service.playerPoints = 0;
+
+      const result = service.getResult();
+
+      expect(result).toEqual('loss');
+    });
+
+    it('should return "win" if computer has less points than player', () => {
+      service.computerPoints = 0;
+      service.playerPoints = 1;
+
+      const result = service.getResult();
+
+      expect(result).toEqual('win');
+    });
+
+    it('should return "draw" if computer has the same amount of points as the player', () => {
+      service.computerPoints = 1;
+      service.playerPoints = 1;
+
+      const result = service.getResult();
+
+      expect(result).toEqual('draw');
+    });
+  });
 });
