@@ -181,4 +181,18 @@ fdescribe('GameLogicService', () => {
       expect(called).toBeTrue();
     });
   });
+
+  describe('resetGame', () => {
+    it('should reset game state when called', () => {
+      service.turn = 12;
+      service.playerPoints = 1;
+      service.computerPoints = 1;
+
+      service.resetGame();
+
+      expect(service.turn).toBe(1);
+      expect(service.playerPoints).toBe(0);
+      expect(service.computerPoints).toBe(0);
+    });
+  });
 });
