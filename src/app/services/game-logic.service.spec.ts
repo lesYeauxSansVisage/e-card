@@ -119,4 +119,20 @@ fdescribe('GameLogicService', () => {
       expect(getEmperorDeckPoints).toBe(1);
     });
   });
+
+  describe('setPlayerDeck', () => {
+    it('should set the playerDeck property', () => {
+      service.setPlayerDeck('slave');
+
+      expect(service.currentPlayerDeck).toBe('slave');
+    });
+  });
+
+  describe('setComputerDeck', () => {
+    it('should set the computerDeck property', () => {
+      service.setComputerDeck('slave');
+
+      expect(service.currentComputerDeck).toBe('slave');
+    });
+  });
 });
