@@ -105,4 +105,18 @@ fdescribe('GameLogicService', () => {
       expect(service.endGame).toHaveBeenCalled();
     });
   });
+
+  describe('getPoints', () => {
+    it('should return 3 points if slave is passed as argument', () => {
+      const getSlaveDeckPoints = service.getPoints('slave');
+
+      expect(getSlaveDeckPoints).toBe(3);
+    });
+
+    it('should return 1 point if emperor is passed as argument', () => {
+      const getEmperorDeckPoints = service.getPoints('emperor');
+
+      expect(getEmperorDeckPoints).toBe(1);
+    });
+  });
 });
