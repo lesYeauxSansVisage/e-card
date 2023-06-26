@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { GameLogicService } from './game-logic.service';
 import ICard from '../interfaces/ICard';
 
-fdescribe('GameLogicService', () => {
+describe('GameLogicService', () => {
   let service: GameLogicService;
 
   const emperorCard: ICard = {
