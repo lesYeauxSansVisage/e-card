@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import ICard from '../interfaces/ICard';
 import { BehaviorSubject, Subject } from 'rxjs';
 
+type deckType = 'slave' | 'emperor';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -15,8 +17,8 @@ export class GameLogicService {
   playerPoints = 0;
   computerPoints = 0;
 
-  currentPlayerDeck: string = 'emperor';
-  currentComputerDeck: string = 'slave';
+  currentPlayerDeck: deckType = 'emperor';
+  currentComputerDeck: deckType = 'slave';
 
   NUMBER_OF_TURNS = 12;
 
@@ -34,7 +36,7 @@ export class GameLogicService {
     }
   }
 
-  getPoints(deck: string): number {
+  getPoints(deck: deckType) {
     if (deck === 'emperor') {
       return 1;
     }
@@ -46,11 +48,11 @@ export class GameLogicService {
     return 0;
   }
 
-  setPlayerDeck(deckName: string) {
+  setPlayerDeck(deckName: deckType) {
     this.currentPlayerDeck = deckName;
   }
 
-  setComputerDeck(deckName: string) {
+  setComputerDeck(deckName: deckType) {
     this.currentComputerDeck = deckName;
   }
 
@@ -65,18 +67,18 @@ export class GameLogicService {
 
   getResult() {
     if (this.playerPoints > this.computerPoints) {
-      return 'win'
+      return 'win';
     }
 
     if (this.computerPoints > this.playerPoints) {
-      return 'loss'
+      return 'loss';
     }
 
-    return 'draw'
+    return 'draw';
   }
 
   endGame() {
-    const result = this.getResult()
+    const result = this.getResult();
     this.isGameOver.next(result);
   }
 
