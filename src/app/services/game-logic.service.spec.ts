@@ -164,4 +164,21 @@ fdescribe('GameLogicService', () => {
       expect(result).toEqual('draw');
     });
   });
+
+  describe('endGame', () => {
+    it('should call the subject isGameOver with the result when called', () => {
+      let called = false;
+
+      service.isGameOver.subscribe((result) => {
+        called = true;
+
+        expect(result).toBeTruthy();
+        expect(result).toEqual('draw');
+      });
+
+      service.endGame();
+
+      expect(called).toBeTrue();
+    });
+  });
 });
