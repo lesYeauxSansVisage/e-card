@@ -2,30 +2,18 @@ import { TestBed } from '@angular/core/testing';
 
 import { GameLogicService } from './game-logic.service';
 import ICard from '../interfaces/ICard';
+import { emperorDeck, slaveDeck } from 'src/assets/tests-mock-data';
 
-describe('GameLogicService', () => {
+fdescribe('GameLogicService', () => {
   let service: GameLogicService;
 
-  const emperorCard: ICard = {
-    id: 1,
-    name: 'emperor',
-    image: 'assets/imgs/Emperor.jpg',
-    beats: 'citizen',
-  };
+  const emperorCard: ICard = emperorDeck.find(
+    (card) => card.name === 'emperor'
+  )!;
 
-  const slaveCard: ICard = {
-    id: 2,
-    name: 'slave',
-    image: 'assets/imgs/Slave.jpg',
-    beats: 'emperor',
-  };
+  const slaveCard: ICard = slaveDeck.find((card) => card.name === 'slave')!;
 
-  const citizenCard: ICard = {
-    id: 3,
-    name: 'citizen',
-    image: 'assets/imgs/Emperor.jpg',
-    beats: 'Slave',
-  };
+  const citizenCard: ICard = slaveDeck.find((card) => card.name === 'citizen')!;
 
   beforeEach(() => {
     service = TestBed.inject(GameLogicService);
