@@ -2,10 +2,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScoreboardComponent } from './scoreboard.component';
 import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
 describe('ScoreboardComponent', () => {
   let component: ScoreboardComponent;
   let fixture: ComponentFixture<ScoreboardComponent>;
+  let el: DebugElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -14,6 +16,7 @@ describe('ScoreboardComponent', () => {
 
     fixture = TestBed.createComponent(ScoreboardComponent);
     component = fixture.componentInstance;
+    el = fixture.debugElement;
     fixture.detectChanges();
   });
 
@@ -22,8 +25,7 @@ describe('ScoreboardComponent', () => {
   });
 
   it('should show the current turn', () => {
-    const { debugElement } = fixture;
-    const scoreboardTurnEl = debugElement.query(By.css('.scoreboard__turn'));
+    const scoreboardTurnEl = el.query(By.css('.scoreboard__turn'));
 
     component.turn = 2;
     fixture.detectChanges();
@@ -32,8 +34,7 @@ describe('ScoreboardComponent', () => {
   });
 
   it('should show the current player points', () => {
-    const { debugElement } = fixture;
-    const playerPointsEl = debugElement.queryAll(
+    const playerPointsEl = el.queryAll(
       By.css('.scoreboard__points')
     )[0];
 
@@ -44,8 +45,7 @@ describe('ScoreboardComponent', () => {
   });
 
   it('should show the current computer points', () => {
-    const { debugElement } = fixture;
-    const computerPointsEl = debugElement.queryAll(
+    const computerPointsEl = el.queryAll(
       By.css('.scoreboard__points')
     )[1];
 
