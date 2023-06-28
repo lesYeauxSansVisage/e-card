@@ -4,7 +4,7 @@ import { GameLogicService } from './game-logic.service';
 import ICard from '../interfaces/ICard';
 import { emperorDeck, slaveDeck } from 'src/assets/tests-mock-data';
 
-fdescribe('GameLogicService', () => {
+describe('GameLogicService', () => {
   let service: GameLogicService;
 
   const emperorCard: ICard = emperorDeck.find(
