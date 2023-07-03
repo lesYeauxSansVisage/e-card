@@ -48,6 +48,20 @@ fdescribe('DeckComponent', () => {
   });
 
   it('should set the choosenCardId equal to the id of the card clicked', () => {
-    pending();
+    component.player = 'player';
+
+    fixture.detectChanges();
+
+    const card = el.queryAll(By.css('.card'))[4].nativeElement;
+
+    card.click();
+
+    expect(component.choosenCardID).toBe(deck[4].id);
+  });
+
+  it('onClick should set the choosen card it to the card clicked id', () => {
+    component.onClick(deck[0]);
+
+    expect(component.choosenCardID).toBe(deck[0].id);
   });
 });
