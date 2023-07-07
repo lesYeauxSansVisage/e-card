@@ -6,7 +6,7 @@ import { CardComponent } from './card/card.component';
 import { By } from '@angular/platform-browser';
 import { ComputerCardComponent } from './computer-card/computer-card.component';
 
-fdescribe('DeckComponent', () => {
+describe('DeckComponent', () => {
   let component: DeckComponent;
   let fixture: ComponentFixture<DeckComponent>;
   let el: DebugElement;
