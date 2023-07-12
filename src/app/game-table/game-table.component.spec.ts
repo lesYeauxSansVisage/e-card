@@ -94,5 +94,18 @@ fdescribe('GameTableComponent', () => {
     expect(component.getComputerChoice).toHaveBeenCalledTimes(1);
   });
 
-  
+  it('playCard should lock the selected cards if computerChoice and playerChoice are not null', () => {
+    component.computerChoice = slaveCard;
+    component.playerChoice = emperorCard;
+
+    component.playCard();
+
+    expect(component.lockSelectedCards).toBeTrue();
+  });
+
+  it('playCard should not lock the selected cards if computerChoice and playerChoice are not null', () => {
+    component.playCard();
+
+    expect(component.lockSelectedCards).toBeFalse();
+  });
 });
