@@ -10,11 +10,26 @@ import { By } from '@angular/platform-browser';
 import { EndScreenComponent } from './end-screen/end-screen.component';
 import { emperorDeck, slaveDeck } from 'src/assets/tests-mock-data';
 import ICard from '../interfaces/ICard';
+import { GameLogicService } from '../services/game-logic.service';
+import { Subject } from 'rxjs';
 
 fdescribe('GameTableComponent', () => {
   let component: GameTableComponent;
   let fixture: ComponentFixture<GameTableComponent>;
   let el: DebugElement;
+  let service: any;
+
+  const gameLogicServiceSpy = jasmine.createSpyObj('GameLogicService', [
+    'checkWinner',
+  ]);
+
+  const isTurnOver = new Subject();
+  const turnSubject = new Subject();
+  const isGameOver = new Subject();
+
+  gameLogicServiceSpy.isTurnOver = isTurnOver;
+  gameLogicServiceSpy.turnSubject = turnSubject;
+  gameLogicServiceSpy.isGameOver = isGameOver;
 
   const slaveCard = slaveDeck.find((card) => card.name === 'slave')!;
   const emperorCard = emperorDeck.find((card) => card.name === 'emperor')!;
@@ -30,12 +45,17 @@ fdescribe('GameTableComponent', () => {
         ScoreboardComponent,
         EndScreenComponent,
       ],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(GameTableComponent);
-    component = fixture.componentInstance;
-    el = fixture.debugElement;
-    fixture.detectChanges();
+      providers: [{ provide: GameLogicService, useValue: gameLogicServiceSpy }],
+    })
+      .compileComponents()
+      .then(() => {
+        gameLogicServiceSpy.checkWinner.calls.reset();
+        fixture = TestBed.createComponent(GameTableComponent);
+        component = fixture.componentInstance;
+        el = fixture.debugElement;
+        service = TestBed.inject(GameLogicService);
+        fixture.detectChanges();
+      });
   });
 
   it('should create', () => {
@@ -107,5 +127,21 @@ fdescribe('GameTableComponent', () => {
     component.playCard();
 
     expect(component.lockSelectedCards).toBeFalse();
+  });
+
+  it('playCard should not call the method checkWinner if playerChoice or computerChoice is not valid', () => {
+    component.playCard();
+
+    expect(gameLogicServiceSpy.checkWinner).not.toHaveBeenCalled();
+  });
+
+  it('playCard should not call the method checkWinner if lockSelectedCards is set to true', () => {
+    component.playerChoice = slaveCard;
+    component.computerChoice = emperorCard;
+    component.lockSelectedCards = true;
+
+    component.playCard();
+
+    expect(gameLogicServiceSpy.checkWinner).not.toHaveBeenCalled();
   });
 });
