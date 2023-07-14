@@ -328,4 +328,22 @@ fdescribe('GameTableComponent', () => {
 
     expect(gameLogicServiceSpy.resetGame).toHaveBeenCalledTimes(1);
   });
+
+  it('resetGame should reset game properties', () => {
+    let spy = spyOn(component, 'getDecks').and.stub();
+
+    component.isTurnOver = false;
+    component.isGameOver = true;
+    component.playerPoints = 5;
+    component.computerPoints = 1;
+    component.turn = 12;
+
+    component.resetGame();
+
+    expect(component.isTurnOver).toBeFalse();
+    expect(component.isGameOver).toBeFalse();
+    expect(component.playerPoints).toBe(0);
+    expect(component.computerPoints).toBe(0);
+    expect(component.turn).toBe(1);
+  });
 });
