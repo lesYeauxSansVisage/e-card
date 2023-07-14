@@ -17,6 +17,7 @@ import { emperorDeck, slaveDeck } from 'src/assets/tests-mock-data';
 import ICard from '../interfaces/ICard';
 import { GameLogicService } from '../services/game-logic.service';
 import { Subject } from 'rxjs';
+import { DeckService } from '../services/deck.service';
 
 fdescribe('GameTableComponent', () => {
   let component: GameTableComponent;
@@ -28,7 +29,7 @@ fdescribe('GameTableComponent', () => {
 
   const gameLogicServiceSpy = jasmine.createSpyObj(
     'GameLogicService',
-    ['checkWinner', 'increaseTurn'],
+    ['checkWinner', 'increaseTurn', 'resetGame'],
     { computerPoints: fakePoints, playerPoints: fakePoints }
   );
 
@@ -54,11 +55,16 @@ fdescribe('GameTableComponent', () => {
         ScoreboardComponent,
         EndScreenComponent,
       ],
-      providers: [{ provide: GameLogicService, useValue: gameLogicServiceSpy }],
+      providers: [
+        { provide: GameLogicService, useValue: gameLogicServiceSpy },
+        DeckService,
+      ],
     })
       .compileComponents()
       .then(() => {
         gameLogicServiceSpy.checkWinner.calls.reset();
+        gameLogicServiceSpy.increaseTurn.calls.reset();
+        gameLogicServiceSpy.resetGame.calls.reset();
         fixture = TestBed.createComponent(GameTableComponent);
         component = fixture.componentInstance;
         el = fixture.debugElement;
@@ -268,4 +274,58 @@ fdescribe('GameTableComponent', () => {
 
     expect(gameLogicServiceSpy.increaseTurn).toHaveBeenCalledTimes(1);
   }));
+
+  it('removeCards should remove selected cards from player and computer cards arrays', () => {
+    component.playerDeck = slaveDeck;
+    component.playerChoice = slaveCard;
+    component.computerDeck = emperorDeck;
+    component.computerChoice = emperorCard;
+
+    component.removeCards();
+
+    const selectedComputerCard = component.computerDeck.find(
+      (card) => card.id === emperorCard.id
+    );
+    const selectedPlayerCard = component.computerDeck.find(
+      (card) => card.id === emperorCard.id
+    );
+
+    expect(selectedComputerCard).toBeFalsy();
+    expect(selectedPlayerCard).toBeFalsy();
+  });
+
+  it('removeCards should not remove selected cards from player and computer cards arrays if computer/playerChoice are invalids', () => {
+    component.computerDeck = emperorDeck;
+    component.computerChoice = emperorCard;
+
+    component.removeCards();
+
+    const selectedComputerCard = component.computerDeck.find(
+      (card) => card.id === emperorCard.id
+    );
+    const selectedPlayerCard = component.computerDeck.find(
+      (card) => card.id === emperorCard.id
+    );
+
+    expect(component.computerDeck.length).toBe(5);
+    expect(component.playerDeck.length).toBe(5);
+  });
+
+  it('resetGame should call resetSelection and getDecks', () => {
+    let spy1 = spyOn(component, 'resetSelection');
+    let spy2 = spyOn(component, 'getDecks');
+
+    component.resetGame();
+
+    expect(component.resetSelection).toHaveBeenCalledTimes(1);
+    expect(component.getDecks).toHaveBeenCalledTimes(1);
+  });
+
+  it('resetGame should call gameLogicServiceSpy.resetGame', () => {
+    let spy = spyOn(component, 'getDecks').and.stub();
+
+    component.resetGame();
+
+    expect(gameLogicServiceSpy.resetGame).toHaveBeenCalledTimes(1);
+  });
 });
