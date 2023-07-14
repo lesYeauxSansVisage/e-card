@@ -1,4 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 
 import { GameTableComponent } from './game-table.component';
 import { DeckComponent } from './deck/deck.component';
@@ -21,6 +26,7 @@ fdescribe('GameTableComponent', () => {
 
   const gameLogicServiceSpy = jasmine.createSpyObj('GameLogicService', [
     'checkWinner',
+    'increaseTurn',
   ]);
 
   const isTurnOver = new Subject();
@@ -144,4 +150,78 @@ fdescribe('GameTableComponent', () => {
 
     expect(gameLogicServiceSpy.checkWinner).not.toHaveBeenCalled();
   });
+
+  it('playCard should call the method checkWinner if lockSelectedCards is falsy and playerChoice/computerChoice are valids', () => {
+    component.playerChoice = slaveCard;
+    component.computerChoice = emperorCard;
+    component.lockSelectedCards = false;
+
+    component.playCard();
+
+    expect(gameLogicServiceSpy.checkWinner).toHaveBeenCalled();
+  });
+
+  it('playCard should lock the selected cards if playerChoice/computerChoice are valids and card are not locked', () => {
+    component.playerChoice = slaveCard;
+    component.computerChoice = emperorCard;
+    component.lockSelectedCards = false;
+
+    component.playCard();
+
+    expect(component.lockSelectedCards).toBeTrue();
+  });
+
+  it('playCard should lock the selected cards if playerChoice/computerChoice are valids and card are not locked', () => {
+    component.playerChoice = slaveCard;
+    component.computerChoice = emperorCard;
+    component.lockSelectedCards = false;
+
+    component.playCard();
+
+    expect(component.lockSelectedCards).toBeTrue();
+  });
+
+  it('playCard should lock the selected cards again after 500ms if playerChoice/computerChoice are valids and card are not locked', fakeAsync(() => {
+    component.playerChoice = slaveCard;
+    component.computerChoice = emperorCard;
+    component.lockSelectedCards = false;
+
+    component.playCard();
+
+    tick(500);
+
+    expect(component.lockSelectedCards).toBeFalse();
+  }));
+
+  it('playCard should call removeCards and reset selection if turn is not over', fakeAsync(() => {
+    component.playerChoice = slaveCard;
+    component.computerChoice = emperorCard;
+    component.lockSelectedCards = false;
+
+    let spy1 = spyOn(component, 'removeCards');
+    let spy2 = spyOn(component, 'resetSelection');
+
+    component.playCard();
+
+    tick(500);
+
+    expect(component.resetSelection).toHaveBeenCalledTimes(1);
+    expect(component.removeCards).toHaveBeenCalledTimes(1);
+  }));
+
+  it('playCard should set isTurnOver to false after 500ms', fakeAsync(() => {
+    component.playerChoice = slaveCard;
+    component.computerChoice = emperorCard;
+    component.lockSelectedCards = false;
+    component.isTurnOver = true;
+
+    let spy1 = spyOn(component, 'removeCards');
+    let spy2 = spyOn(component, 'resetSelection');
+
+    component.playCard();
+
+    tick(500);
+
+    expect(component.isTurnOver).toBeFalse();
+  }));
 });
