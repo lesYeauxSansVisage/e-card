@@ -24,10 +24,13 @@ fdescribe('GameTableComponent', () => {
   let el: DebugElement;
   let service: any;
 
-  const gameLogicServiceSpy = jasmine.createSpyObj('GameLogicService', [
-    'checkWinner',
-    'increaseTurn',
-  ]);
+  const fakePoints = 5;
+
+  const gameLogicServiceSpy = jasmine.createSpyObj(
+    'GameLogicService',
+    ['checkWinner', 'increaseTurn'],
+    { computerPoints: fakePoints, playerPoints: fakePoints }
+  );
 
   const isTurnOver = new Subject();
   const turnSubject = new Subject();
@@ -171,7 +174,7 @@ fdescribe('GameTableComponent', () => {
     expect(component.lockSelectedCards).toBeTrue();
   });
 
-  it('playCard should lock the selected cards if playerChoice/computerChoice are valids and card are not locked', () => {
+  it('playCard should lock the selected cards if playerChoice/computerChoice are valids and cards are not locked', () => {
     component.playerChoice = slaveCard;
     component.computerChoice = emperorCard;
     component.lockSelectedCards = false;
@@ -181,7 +184,7 @@ fdescribe('GameTableComponent', () => {
     expect(component.lockSelectedCards).toBeTrue();
   });
 
-  it('playCard should lock the selected cards again after 500ms if playerChoice/computerChoice are valids and card are not locked', fakeAsync(() => {
+  it('playCard should unlock the selected cards again after 500ms if playerChoice/computerChoice are valids and cards are not locked', fakeAsync(() => {
     component.playerChoice = slaveCard;
     component.computerChoice = emperorCard;
     component.lockSelectedCards = false;
@@ -223,5 +226,46 @@ fdescribe('GameTableComponent', () => {
     tick(500);
 
     expect(component.isTurnOver).toBeFalse();
+  }));
+
+  it('playCard should change playerPoints and computerPoints if isTurnOver is truthy', fakeAsync(() => {
+    component.playerChoice = slaveCard;
+    component.computerChoice = emperorCard;
+    component.lockSelectedCards = false;
+    component.isTurnOver = true;
+
+    component.playCard();
+
+    tick(500);
+
+    expect(component.playerPoints).toBe(fakePoints);
+    expect(component.computerPoints).toBe(fakePoints);
+  }));
+
+  it('playCard should not change playerPoints and computerPoints if isTurnOver is falsy', fakeAsync(() => {
+    component.playerChoice = slaveCard;
+    component.computerChoice = emperorCard;
+    component.lockSelectedCards = false;
+    component.isTurnOver = false;
+
+    component.playCard();
+
+    tick(500);
+
+    expect(component.playerPoints).toBe(0);
+    expect(component.computerPoints).toBe(0);
+  }));
+
+  it('playCard call increaseTurn after 500ms is turnOver is true', fakeAsync(() => {
+    component.playerChoice = slaveCard;
+    component.computerChoice = emperorCard;
+    component.lockSelectedCards = false;
+    component.isTurnOver = true;
+
+    component.playCard();
+
+    tick(500);
+
+    expect(gameLogicServiceSpy.increaseTurn).toHaveBeenCalledTimes(1);
   }));
 });
