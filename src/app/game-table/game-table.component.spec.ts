@@ -19,7 +19,7 @@ import { GameLogicService } from '../services/game-logic.service';
 import { Subject } from 'rxjs';
 import { DeckService } from '../services/deck.service';
 
-fdescribe('GameTableComponent', () => {
+describe('GameTableComponent', () => {
   let component: GameTableComponent;
   let fixture: ComponentFixture<GameTableComponent>;
   let el: DebugElement;
@@ -345,5 +345,19 @@ fdescribe('GameTableComponent', () => {
     expect(component.playerPoints).toBe(0);
     expect(component.computerPoints).toBe(0);
     expect(component.turn).toBe(1);
+  });
+
+  it('resetSelection should reset the playerChoice and computerChoice and set cardIds to -1', () => {
+    component.playerChoice = slaveCard;
+    component.choosenPlayerCardId = slaveCard.id;
+    component.computerChoice = emperorCard;
+    component.computerCardId = emperorCard.id;
+
+    component.resetSelection();
+
+    expect(component.playerChoice).toBeNull();
+    expect(component.computerChoice).toBeNull();
+    expect(component.choosenPlayerCardId).toBe(-1);
+    expect(component.computerCardId).toBe(-1);
   });
 });
