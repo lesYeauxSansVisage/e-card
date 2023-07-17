@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import ICard from '../interfaces/ICard';
 import { DeckService } from '../services/deck.service';
-import { GameLogicService } from '../services/game-logic.service';
+import { GameLogicService, deckType } from '../services/game-logic.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -140,30 +140,33 @@ export class GameTableComponent implements OnInit, OnDestroy {
   }
 
   getDecks() {
-    if (this.turn < 4) {
+    switch (true) {
+      case this.turn < 4:
+        this.setDecks('emperor');
+        break;
+      case this.turn < 7:
+        this.setDecks('slave');
+        break;
+      case this.turn < 10:
+        this.setDecks('emperor');
+        break;
+      case this.turn < 13:
+        this.setDecks('slave');
+        break;
+      default:
+        break;
+    }
+  }
+
+  setDecks(playerDeck: deckType) {
+    if (playerDeck === 'emperor') {
       this.playerDeck = this.deckService.getEmperorDeck();
       this.computerDeck = this.deckService.getSlaveDeck();
+    }
 
-      this.gameLogicService.setComputerDeck('slave');
-      this.gameLogicService.setPlayerDeck('emperor');
-    } else if (this.turn > 3 && this.turn < 7) {
-      this.computerDeck = this.deckService.getEmperorDeck();
+    if (playerDeck === 'slave') {
       this.playerDeck = this.deckService.getSlaveDeck();
-
-      this.gameLogicService.setComputerDeck('emperor');
-      this.gameLogicService.setPlayerDeck('slave');
-    } else if (this.turn > 6 && this.turn < 10) {
-      this.computerDeck = this.deckService.getSlaveDeck();
-      this.playerDeck = this.deckService.getEmperorDeck();
-
-      this.gameLogicService.setComputerDeck('slave');
-      this.gameLogicService.setPlayerDeck('emperor');
-    } else if (this.turn > 9 && this.turn < 13) {
       this.computerDeck = this.deckService.getEmperorDeck();
-      this.playerDeck = this.deckService.getSlaveDeck();
-
-      this.gameLogicService.setComputerDeck('emperor');
-      this.gameLogicService.setPlayerDeck('slave');
     }
   }
 }
