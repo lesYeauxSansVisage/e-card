@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import ICard from '../interfaces/ICard';
 import { BehaviorSubject, Subject } from 'rxjs';
 
-type deckType = 'slave' | 'emperor';
+export type deckType = 'slave' | 'emperor';
 
 @Injectable({
   providedIn: 'root',
