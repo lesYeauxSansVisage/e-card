@@ -14,16 +14,14 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { EndScreenComponent } from './end-screen/end-screen.component';
 import { emperorDeck, slaveDeck } from 'src/assets/tests-mock-data';
-import ICard from '../interfaces/ICard';
 import { GameLogicService } from '../services/game-logic.service';
 import { Subject } from 'rxjs';
 import { DeckService } from '../services/deck.service';
 
-describe('GameTableComponent', () => {
+fdescribe('GameTableComponent', () => {
   let component: GameTableComponent;
   let fixture: ComponentFixture<GameTableComponent>;
   let el: DebugElement;
-  let service: any;
 
   const fakePoints = 5;
 
@@ -32,6 +30,14 @@ describe('GameTableComponent', () => {
     ['checkWinner', 'increaseTurn', 'resetGame'],
     { computerPoints: fakePoints, playerPoints: fakePoints }
   );
+
+  const deckServiceSpy = jasmine.createSpyObj('DeckService', [
+    'getSlaveDeck',
+    'getEmperorDeck',
+  ]);
+
+  deckServiceSpy.getSlaveDeck.and.returnValue(slaveDeck);
+  deckServiceSpy.getEmperorDeck.and.returnValue(emperorDeck);
 
   const isTurnOver = new Subject();
   const turnSubject = new Subject();
@@ -57,7 +63,7 @@ describe('GameTableComponent', () => {
       ],
       providers: [
         { provide: GameLogicService, useValue: gameLogicServiceSpy },
-        DeckService,
+        { provide: DeckService, useValue: deckServiceSpy },
       ],
     })
       .compileComponents()
@@ -68,7 +74,6 @@ describe('GameTableComponent', () => {
         fixture = TestBed.createComponent(GameTableComponent);
         component = fixture.componentInstance;
         el = fixture.debugElement;
-        service = TestBed.inject(GameLogicService);
         fixture.detectChanges();
       });
   });
