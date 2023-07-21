@@ -14,7 +14,7 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { EndScreenComponent } from './end-screen/end-screen.component';
 import { emperorDeck, slaveDeck } from 'src/assets/tests-mock-data';
-import { GameLogicService } from '../services/game-logic.service';
+import { GameLogicService, deckType } from '../services/game-logic.service';
 import { Subject } from 'rxjs';
 import { DeckService } from '../services/deck.service';
 
@@ -50,6 +50,10 @@ fdescribe('GameTableComponent', () => {
   const slaveCard = slaveDeck.find((card) => card.name === 'slave')!;
   const emperorCard = emperorDeck.find((card) => card.name === 'emperor')!;
   const citizenCard = slaveDeck.find((card) => card.name === 'citizen')!;
+
+  const emperorTurns = [1, 2, 3, 7, 8, 9];
+
+  const slaveTurns = [4, 5, 6, 10, 11, 12];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -365,4 +369,22 @@ fdescribe('GameTableComponent', () => {
     expect(component.choosenPlayerCardId).toBe(-1);
     expect(component.computerCardId).toBe(-1);
   });
+
+  for (let turn of emperorTurns) {
+    testTurn(turn, 'emperor');
+  }
+
+  for (let turn of slaveTurns) {
+    testTurn(turn, 'slave');
+  }
+
+  function testTurn(turn: number, deckType: deckType) {
+    it(`getDecks should call setDecks with ${deckType} in turn ${turn}`, () => {
+      spyOn(component, 'setDecks');
+      component.turn = turn;
+      component.getDecks();
+
+      expect(component.setDecks).toHaveBeenCalledOnceWith(deckType);
+    });
+  }
 });
