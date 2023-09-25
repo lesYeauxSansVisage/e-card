@@ -18,7 +18,7 @@ import { GameLogicService, deckType } from '../services/game-logic.service';
 import { Subject } from 'rxjs';
 import { DeckService } from '../services/deck.service';
 
-fdescribe('GameTableComponent', () => {
+describe('GameTableComponent', () => {
   let component: GameTableComponent;
   let fixture: ComponentFixture<GameTableComponent>;
   let el: DebugElement;
